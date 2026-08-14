@@ -24,7 +24,7 @@ body {
   overflow-x: hidden;
   color: var(--text);
   font-family: "Poppins", sans-serif;
-  background: var(--black) url("manga.jpg") center / cover fixed no-repeat;
+  background: var(--black) url("dangki/manga.jpg") center / cover fixed no-repeat;
 }
 
 /* Darken the collage without using a gradient. */
@@ -73,6 +73,9 @@ nav h1 {
 }
 
 nav .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 38px;
   padding: 0 16px;
   border: 1px solid #363636;
@@ -83,6 +86,7 @@ nav .btn {
   font: inherit;
   font-size: 0.81rem;
   font-weight: 500;
+  text-decoration: none;
   transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 
@@ -113,7 +117,6 @@ nav .btn:last-child, nav .btn:hover {
 }
 
 .register-box h2::after {
-  content: "Tạo tài khoản để bắt đầu xem anime không giới hạn.";
   display: block;
   margin-top: 9px;
   color: var(--muted);
@@ -121,6 +124,7 @@ nav .btn:last-child, nav .btn:hover {
   font-weight: 400;
   letter-spacing: 0;
 }
+
 
 .input-group { margin-bottom: 22px; }
 
