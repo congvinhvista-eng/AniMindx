@@ -3,6 +3,12 @@
 // ==========================================
 
 const currentUser = document.getElementById("currentUser");
+const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
+
+
+if (loggedInUser && currentUser) {
+  currentUser.textContent = loggedInUser.username;
+}
 const movieList = document.getElementById("movie-list");
 const animeList = document.getElementById("anime-list");
 const allMovieList = document.getElementById("all-movie-list");

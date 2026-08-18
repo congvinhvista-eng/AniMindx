@@ -1,20 +1,170 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AniMindx || Profile</title>
+
+    <title>AniMindx || Cài đặt</title>
+
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/profile.css" />
+
+
     <script src="../js/profile.js" defer></script>
   </head>
-  <body>
-    <section class="recent-section">
-      <h2>🕒 Đã xem gần đây</h2>
 
-      <div id="recent-movies" class="movie-grid">
-        <!-- JS sẽ thêm phim vào đây -->
-      </div>
-    </section>
+  <body class="profile-page">
+
+    <!-- NAVBAR -->
+    <nav>
+      <h1>AniMindx</h1>
+
+      <a class="btn" href="../main.html">
+        Trang chủ
+      </a>
+    </nav>
+
+
+    <!-- SETTINGS -->
+    <main class="settings-container">
+
+      <h2>Cài đặt</h2>
+
+
+      <!-- ACCOUNT -->
+      <section class="settings-section">
+
+        <h3>Tài khoản</h3>
+
+
+        <!-- USERNAME -->
+        <div class="setting-item">
+
+          <div class="setting-info">
+            <span class="setting-icon">👤</span>
+
+            <div>
+              <h4>Tên đăng nhập</h4>
+
+              <p id="current-username">
+                Đang tải...
+              </p>
+            </div>
+          </div>
+
+          <button
+            class="setting-button"
+            id="change-username-btn"
+          >
+            Đổi tên
+          </button>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+        <div class="setting-item">
+
+          <div class="setting-info">
+
+            <span class="setting-icon">🔒</span>
+
+            <div>
+              <h4>Mật khẩu</h4>
+
+              <p>••••••••</p>
+            </div>
+
+          </div>
+
+          <button
+            class="setting-button"
+            id="change-password-btn"
+          >
+            Đổi mật khẩu
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- WATCH HISTORY -->
+      <section class="settings-section">
+
+        <h3>Hoạt động</h3>
+
+        <div class="setting-item">
+
+          <div class="setting-info">
+
+            <span class="setting-icon">🎬</span>
+
+            <div>
+              <h4>Phim đã xem</h4>
+
+              <p id="recent-count">
+                0 phim
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            class="setting-button"
+            id="recent-movies-btn"
+          >
+            Xem lịch sử
+          </button>
+
+        </div>
+
+
+        <!-- CLEAR HISTORY -->
+
+        <div class="setting-item">
+
+          <div class="setting-info">
+
+            <span class="setting-icon">🗑️</span>
+
+            <div>
+              <h4>Xóa lịch sử xem</h4>
+
+              <p>
+                Xóa toàn bộ phim đã xem gần đây
+              </p>
+            </div>
+
+          </div>
+
+          <button
+            class="setting-button danger"
+            id="clear-history-btn"
+          >
+            Xóa
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- LOGOUT -->
+      <section class="settings-section">
+
+        <h3>Tài khoản</h3>
+
+        <button
+          class="logout-button"
+          id="logout-btn"
+        >
+          🚪 Đăng xuất
+        </button>
+
+      </section>
+
+    </main>
+
   </body>
 </html>
