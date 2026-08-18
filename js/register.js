@@ -60,6 +60,6 @@
 
             // 2. Chuyển hướng sang trang đăng nhập (Thay 'login.html' bằng file thực tế của bạn)
             // Lưu ý: Nếu bạn chưa có file login.html, trình duyệt sẽ báo lỗi 404
-            window.location.href = 'login.html';
+            window.location.href = 'page/login.html';
         }
     });

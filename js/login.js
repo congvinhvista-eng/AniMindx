@@ -18,7 +18,7 @@ loginForm.addEventListener("submit", (event) => {
   localStorage.setItem("currentUser", JSON.stringify({ username: account.username }));
   alert(`Đăng nhập thành công. Chào mừng ${account.username}!`);
   loginForm.reset();
-  window.location.href = "index.html"; 
+  window.location.href = "../main.html";
 });
 
 

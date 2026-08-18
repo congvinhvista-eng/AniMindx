@@ -18,7 +18,7 @@ if (!movieId || movieId === "undefined") {
   movieDetail.innerHTML = `
     <h1>Không tìm thấy phim</h1>
     <p>ID phim không hợp lệ.</p>
-    <a href="index.html">← Quay lại</a>
+    <a href="../main.html">← Quay lại</a>
   `;
 
 } else {
@@ -36,7 +36,7 @@ if (!movieId || movieId === "undefined") {
     movieDetail.innerHTML = `
       <h1>Không xác định được loại phim</h1>
       <p>Loại phim không hợp lệ.</p>
-      <a href="index.html">← Quay lại</a>
+      <a href="../main.html">← Quay lại</a>
     `;
   }
 }
@@ -145,7 +145,7 @@ async function loadAnime(id) {
 
       </section>
 
-      <a href="index.html">
+      <a href="../main.html">
         ← Quay lại
       </a>
     `;
@@ -159,7 +159,7 @@ async function loadAnime(id) {
     movieDetail.innerHTML = `
       <h1>Không thể tải anime</h1>
       <p>Jikan API đang gặp vấn đề hoặc ID không tồn tại.</p>
-      <a href="index.html">← Quay lại</a>
+      <a href="../main.html">← Quay lại</a>
     `;
   }
 }
@@ -265,7 +265,7 @@ async function loadTMDB(id) {
 
       </section>
 
-      <a href="index.html">
+      <a href="../main.html">
         ← Quay lại
       </a>
     `;
@@ -279,7 +279,7 @@ async function loadTMDB(id) {
     movieDetail.innerHTML = `
       <h1>Không thể tải phim</h1>
       <p>TMDB API đang gặp vấn đề hoặc ID không tồn tại.</p>
-      <a href="index.html">← Quay lại</a>
+      <a href="../main.html">← Quay lại</a>
     `;
   }
 }

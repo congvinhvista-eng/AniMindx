@@ -81,7 +81,7 @@ showMoreBtn.addEventListener("click", () => {
 
 if (currentUser) {
   currentUser.addEventListener("click", () => {
-    window.location.href = "profile.html";
+    window.location.href = "page/profile.html";
   });
 }
 
@@ -131,7 +131,7 @@ function saveRecentMovie(movie) {
     type = "anime";
 
     url =
-      `movie.html?type=anime&id=${movie.mal_id}`;
+      `page/movie.html?type=anime&id=${movie.mal_id}`;
   }
 
   // Movie - TMDB
@@ -139,7 +139,7 @@ function saveRecentMovie(movie) {
     type = "tmdb";
 
     url =
-      `movie.html?type=tmdb&id=${movie.id}`;
+      `page/movie.html?type=tmdb&id=${movie.id}`;
   }
 
   else {
@@ -373,7 +373,7 @@ function createMovieCard(movie) {
     if (movie.mal_id) {
 
       window.location.href =
-        `movie.html?type=anime&id=${movie.mal_id}`;
+        `page/movie.html?type=anime&id=${movie.mal_id}`;
 
       return;
     }
@@ -386,7 +386,7 @@ function createMovieCard(movie) {
     if (movie.id) {
 
       window.location.href =
-        `movie.html?type=tmdb&id=${movie.id}`;
+        `page/movie.html?type=tmdb&id=${movie.id}`;
 
       return;
     }
@@ -658,7 +658,7 @@ async function loadHero() {
     "Futaro Uesugi trở thành gia sư cho năm chị em Nakano, mở ra một câu chuyện tình cảm đầy hài hước và những bí mật.";
 
   heroButton.onclick = () => {
-    window.location.href = "movie.html?type=anime&id=38101";
+    window.location.href = "page/movie.html?type=anime&id=38101";
   };
 }
 
