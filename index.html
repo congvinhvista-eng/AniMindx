@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AniMindx</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="config.js"></script>
+    <script src="index.js" defer></script>
+  </head>
+  <body class="movies-page">
+    <nav>
+      <h1>AniMindx</h1>
+      <a class="btn" href="index.html">Trang chủ</a>
+      <div class="user" id="currentUser">User</div>
+    </nav>
+    <section class="hero">
+        <img src="tqq.jpg" alt="">
+      <div class="hero-content">
+        <h1 id="hero-title">Loading...</h1>
+        <p id="hero-info"></p>
+        <p id="hero-description"></p>
+        <button id="hero-button">Watch Now</button>
+      </div>
+    </section>
+    <main class="movies-shell">
+      <section>
+        <h2 class="movies-heading">Phim thịnh hành</h2>
+        <p class="movies-subtitle">
+          Những bộ phim được xem nhiều nhất tuần này.
+        </p>
+        <section
+          id="movie-list"
+          class="movie-grid"
+          aria-live="polite"
+        ></section>
+      </section>
+      <section class="anime-section">
+        <h2 class="anime-heading">Anime thịnh hành</h2>
+        <p class="movies-subtitle">Những phim anime được yêu thích nhất.</p>
+        <section
+          id="anime-list"
+          class="movie-grid"
+          aria-live="polite"
+        ></section>
+      </section>
+      <!-- Toàn bộ phim -->
+      <section class="movies">
+        <h2 class="all-movies-heading">Kho phim</h2>
+        <p class="movies-subtitle">Khám phá hàng trăm bộ phim.</p>
+
+        <div id="all-movie-list" class="movie-library"></div>
+      </section>
+    </main>
+  </body>
+</html>
