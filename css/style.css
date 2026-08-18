@@ -272,6 +272,57 @@ nav .btn:last-child, nav .btn:hover {
   color: var(--muted);
 }
 
+/* =========================
+   KHO PHIM - 3 DÒNG
+========================= */
+
+.movie-library {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 18px;
+
+  max-height: 780px;
+  overflow: hidden;
+
+  transition: max-height 0.5s ease;
+}
+
+.movie-library.expanded {
+  max-height: none;
+}
+
+/* Nút Xem thêm */
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.show-more-btn {
+  padding: 11px 28px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--orange);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.show-more-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
 .btn-register:focus-visible, nav .btn:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
@@ -690,4 +741,172 @@ nav .btn:last-child, nav .btn:hover {
   transform: translateY(-2px);
 
   box-shadow: 0 10px 30px rgba(255, 100, 0, 0.35);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 90px;
+  height: 40px;
+
+  padding: 0 16px;
+
+  border: 1px solid #303030;
+  border-radius: 8px;
+
+  background: #141414;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.user:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+
+  transform: translateY(-2px);
+}
+
+.user:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   KHO ANIME - CARD STYLE
+========================================= */
+
+#all-anime-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 20px;
+
+  max-height: 900px;
+  overflow: hidden;
+
+  padding: 4px 2px;
+}
+
+/* Card anime */
+#all-anime-list .movie-card {
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  border: 1px solid #2d2d2d;
+  border-radius: 10px;
+
+  background: #161616;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Poster */
+#all-anime-list .movie-poster {
+  display: block;
+
+  width: 100%;
+  aspect-ratio: 2 / 3;
+
+  object-fit: cover;
+
+  background: #242424;
+}
+
+/* Thông tin */
+#all-anime-list .movie-info {
+  padding: 13px;
+}
+
+/* Tên anime */
+#all-anime-list .movie-title {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  line-height: 1.45;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Rating */
+#all-anime-list .movie-meta {
+  margin: 7px 0 0;
+
+  color: var(--orange);
+
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* Hover */
+#all-anime-list .movie-card:hover {
+  border-color: var(--orange);
+
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* =========================================
+   XEM THÊM
+========================================= */
+
+#all-anime-list:not(.expanded) {
+  max-height: 900px;
+}
+
+#all-anime-list.expanded {
+  max-height: none;
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 30px;
+}
+
+#show-more-anime-btn {
+  padding: 11px 28px;
+
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+
+  background: var(--surface);
+  color: #fff;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+#show-more-anime-btn:hover {
+  border-color: var(--orange);
+  background: var(--orange);
+
+  transform: translateY(-2px);
 }

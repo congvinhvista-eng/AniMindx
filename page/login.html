@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AniMindx</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="register.js" defer></script>
+    <title>AniMindx || Login</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/login.js" defer></script>
   </head>
   <body>
     <nav>
@@ -13,10 +13,10 @@
       <a class="btn" href="index.html">Trang chủ</a>
       <a class="btn" href="dangky.html">Đăng ký</a>
     </nav>
-    <div class="register-box">
-      <h2>Đăng Ký</h2>
 
-      <form>
+    <main class="register-box login-box">
+      <h2>Đăng nhập</h2>
+      <form id="login-form">
         <div class="input-group">
           <label for="username">Tên đăng nhập</label>
           <input
@@ -26,19 +26,17 @@
             required
           />
         </div>
-
         <div class="input-group">
           <label for="password">Mật khẩu</label>
           <input
             type="password"
             id="password"
-            placeholder="Nhập ít nhất 6 ký tự"
+            placeholder="Nhập mật khẩu"
             required
           />
         </div>
-
-        <button type="submit" class="btn-register">Tạo tài khoản</button>
+        <button type="submit" class="btn-register">Đăng nhập</button>
       </form>
-    </div>
+    </main>
   </body>
 </html>
