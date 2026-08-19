@@ -145,23 +145,12 @@ async function loadAnime(id) {
 // TMDB - PHIM
 // ==============================
 async function loadTMDB(id) {
-  const tmdbApiKey = typeof TMDB_API_KEY === "undefined" ? "" : TMDB_API_KEY;
-
-  if (!tmdbApiKey) {
-    movieDetail.innerHTML = `
-      <h1>Thiếu API key TMDB</h1>
-      <p>Không thể tải thông tin phim. Vui lòng kiểm tra tệp cấu hình.</p>
-      <a href="../main.html">← Quay lại</a>
-    `;
-    return;
-  }
-
   try {
     movieDetail.innerHTML = "<p>Đang tải thông tin phim...</p>";
 
     const url =
       `https://api.themoviedb.org/3/movie/${id}` +
-      `?api_key=${tmdbApiKey}` +
+      `?api_key=${TMDB_API_KEY}` +
       `&language=vi-VN`;
 
     const response = await fetch(url);
