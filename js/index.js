@@ -415,7 +415,9 @@ function createMovieCard(movie) {
 
 async function loadMovies() {
 
-  if (!TMDB_API_KEY) {
+  const tmdbApiKey = typeof TMDB_API_KEY === "undefined" ? "" : TMDB_API_KEY;
+
+  if (!tmdbApiKey) {
 
     showMessage(
       "Thiếu API key TMDB"
@@ -435,7 +437,7 @@ async function loadMovies() {
 
     url.search =
       new URLSearchParams({
-        api_key: TMDB_API_KEY,
+        api_key: tmdbApiKey,
         language: "vi-VN"
       });
 
@@ -575,7 +577,9 @@ async function loadAnimeMovies() {
 
 async function loadPopularMovies() {
 
-  if (!TMDB_API_KEY) {
+  const tmdbApiKey = typeof TMDB_API_KEY === "undefined" ? "" : TMDB_API_KEY;
+
+  if (!tmdbApiKey) {
 
     renderMessage(
       allMovieList,
@@ -600,7 +604,7 @@ async function loadPopularMovies() {
 
       const response =
         await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=vi-VN&page=${page}`
+          `https://api.themoviedb.org/3/movie/popular?api_key=${tmdbApiKey}&language=vi-VN&page=${page}`
         );
 
 
