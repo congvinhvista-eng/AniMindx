@@ -15,6 +15,31 @@ const allMovieList = document.getElementById("all-movie-list");
 const showMoreBtn = document.getElementById("show-more-btn");
 const allAnimeList = document.getElementById("all-anime-list");
 const showMoreAnimeBtn = document.getElementById("show-more-anime-btn");
+const trendingMoviesMoreBtn = document.getElementById("trending-movies-more-btn");
+const trendingAnimeMoreBtn = document.getElementById("trending-anime-more-btn");
+const searchForm = document.getElementById("movie-search-form");
+const searchInput = document.getElementById("movie-search-input");
+const searchResults = document.getElementById("search-results");
+const searchResultsTitle = document.getElementById("search-results-title");
+const searchResultsList = document.getElementById("search-results-list");
+const searchShowMoreContainer = document.getElementById("search-show-more-container");
+const searchShowMoreBtn = document.getElementById("search-show-more-btn");
+const heroSection = document.querySelector(".hero");
+const browseSections = document.querySelectorAll(
+  ".movie-section, .anime-section, .movies, .anime-movies"
+);
+const SEARCH_RESULTS_PER_PAGE = 12;
+const MOVIES_PER_PAGE = 14;
+let searchResultItems = [];
+let visibleSearchResultCount = SEARCH_RESULTS_PER_PAGE;
+let trendingMovieItems = [];
+let trendingAnimeItems = [];
+let popularMovieItems = [];
+let popularAnimeItems = [];
+let visibleTrendingMovies = MOVIES_PER_PAGE;
+let visibleTrendingAnime = MOVIES_PER_PAGE;
+let visiblePopularMovies = MOVIES_PER_PAGE;
+let visiblePopularAnime = MOVIES_PER_PAGE;
 
 // ==========================================
 // ANIME list
@@ -36,9 +61,9 @@ async function loadPopularAnime() {
 
     const data = await response.json();
 
-    const anime = data.data || [];
+    popularAnimeItems = data.data || [];
 
-    if (!anime.length) {
+    if (!popularAnimeItems.length) {
       renderMessage(
         allAnimeList,
         "Không tìm thấy anime."
@@ -46,8 +71,11 @@ async function loadPopularAnime() {
       return;
     }
 
-    allAnimeList.replaceChildren(
-      ...anime.map(createMovieCard)
+    renderMovieCollection(
+      allAnimeList,
+      popularAnimeItems,
+      visiblePopularAnime,
+      showMoreAnimeBtn
     );
 
   } catch (error) {
@@ -58,7 +86,9 @@ async function loadPopularAnime() {
       "Không tải được anime. Vui lòng thử lại sau."
     );
   }
-  
+
+  return;
+
   showMoreAnimeBtn.addEventListener("click", () => {
   allAnimeList.classList.toggle("expanded");
 
@@ -71,6 +101,8 @@ async function loadPopularAnime() {
 }
 
 showMoreBtn.addEventListener("click", () => {
+  return;
+
   allMovieList.classList.toggle("expanded");
 
   if (allMovieList.classList.contains("expanded")) {
@@ -84,6 +116,38 @@ showMoreBtn.addEventListener("click", () => {
 // ==========================================
 // PROFILE
 // ==========================================
+
+showMoreBtn.addEventListener("click", () => {
+  visiblePopularMovies =
+    visiblePopularMovies >= popularMovieItems.length
+      ? MOVIES_PER_PAGE
+      : popularMovieItems.length;
+  renderMovieCollection(allMovieList, popularMovieItems, visiblePopularMovies, showMoreBtn);
+});
+
+showMoreAnimeBtn.addEventListener("click", () => {
+  visiblePopularAnime =
+    visiblePopularAnime >= popularAnimeItems.length
+      ? MOVIES_PER_PAGE
+      : popularAnimeItems.length;
+  renderMovieCollection(allAnimeList, popularAnimeItems, visiblePopularAnime, showMoreAnimeBtn);
+});
+
+trendingMoviesMoreBtn.addEventListener("click", () => {
+  visibleTrendingMovies =
+    visibleTrendingMovies >= trendingMovieItems.length
+      ? MOVIES_PER_PAGE
+      : trendingMovieItems.length;
+  renderMovieCollection(movieList, trendingMovieItems, visibleTrendingMovies, trendingMoviesMoreBtn);
+});
+
+trendingAnimeMoreBtn.addEventListener("click", () => {
+  visibleTrendingAnime =
+    visibleTrendingAnime >= trendingAnimeItems.length
+      ? MOVIES_PER_PAGE
+      : trendingAnimeItems.length;
+  renderMovieCollection(animeList, trendingAnimeItems, visibleTrendingAnime, trendingAnimeMoreBtn);
+});
 
 if (currentUser) {
   currentUser.addEventListener("click", () => {
@@ -111,6 +175,146 @@ function renderMessage(container, message) {
 
 function showMessage(message) {
   renderMessage(movieList, message);
+}
+
+function setBrowseSectionsVisible(isVisible) {
+  browseSections.forEach((section) => {
+    section.hidden = !isVisible;
+  });
+
+  if (heroSection) {
+    heroSection.hidden = !isVisible;
+  }
+}
+
+function renderSearchResults() {
+  const visibleResults = searchResultItems.slice(0, visibleSearchResultCount);
+  const isExpanded = visibleSearchResultCount >= searchResultItems.length;
+
+  searchResultsList.className = "movie-library search-results-grid";
+  searchResultsList.replaceChildren(...visibleResults.map(createMovieCard));
+  searchShowMoreContainer.hidden = searchResultItems.length <= SEARCH_RESULTS_PER_PAGE;
+  searchShowMoreBtn.textContent = isExpanded ? "Thu gọn" : "Xem thêm";
+}
+
+function renderMovieCollection(container, items, visibleCount, button) {
+  const isExpanded = visibleCount >= items.length;
+
+  container.replaceChildren(...items.slice(0, visibleCount).map(createMovieCard));
+  container.classList.toggle("expanded", isExpanded);
+  button.parentElement.hidden = items.length <= MOVIES_PER_PAGE;
+  button.textContent = isExpanded ? "Thu gọn" : "Xem thêm";
+}
+
+
+// ==========================================
+// SEARCH MOVIES AND ANIME
+// ==========================================
+
+async function searchTMDBMovies(query) {
+  if (typeof TMDB_API_KEY === "undefined" || !TMDB_API_KEY) {
+    return [];
+  }
+
+  const url = new URL("https://api.themoviedb.org/3/search/movie");
+  url.search = new URLSearchParams({
+    api_key: TMDB_API_KEY,
+    query,
+    language: "vi-VN"
+  });
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`TMDB search error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.results || [];
+}
+
+async function searchAnime(query) {
+  const url = new URL("https://api.jikan.moe/v4/anime");
+  url.search = new URLSearchParams({ q: query, limit: "12" });
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Jikan search error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.data || [];
+}
+
+async function searchTitles(query) {
+  searchResults.hidden = false;
+  searchResultsTitle.textContent = `Kết quả tìm kiếm: “${query}”`;
+  searchResultsList.className = "movie-library search-results-grid";
+  searchResultsList.innerHTML = '<p class="loading-text">Đang tìm kiếm...</p>';
+  searchShowMoreContainer.hidden = true;
+
+  const [movieSearch, animeSearch] = await Promise.allSettled([
+    searchTMDBMovies(query),
+    searchAnime(query)
+  ]);
+
+  const movies = movieSearch.status === "fulfilled" ? movieSearch.value : [];
+  const anime = animeSearch.status === "fulfilled" ? animeSearch.value : [];
+  const results = [...movies, ...anime];
+
+  if (!results.length) {
+    setBrowseSectionsVisible(true);
+    searchResultItems = [];
+    renderMessage(searchResultsList, "Không tìm thấy phim hoặc anime phù hợp.");
+    return;
+  }
+
+  setBrowseSectionsVisible(false);
+  searchResultItems = results;
+  visibleSearchResultCount = SEARCH_RESULTS_PER_PAGE;
+  renderSearchResults();
+}
+
+if (searchForm && searchInput) {
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const query = searchInput.value.trim();
+
+    if (!query) {
+      searchResults.hidden = true;
+      setBrowseSectionsVisible(true);
+      searchShowMoreContainer.hidden = true;
+      return;
+    }
+
+    searchTitles(query).catch((error) => {
+      console.error("Search error:", error);
+      searchResults.hidden = false;
+      setBrowseSectionsVisible(true);
+      searchShowMoreContainer.hidden = true;
+      renderMessage(searchResultsList, "Không thể tìm kiếm lúc này. Vui lòng thử lại.");
+    });
+  });
+
+  searchInput.addEventListener("input", () => {
+    if (!searchInput.value.trim()) {
+      searchResults.hidden = true;
+      setBrowseSectionsVisible(true);
+      searchShowMoreContainer.hidden = true;
+    }
+  });
+}
+
+if (searchShowMoreBtn) {
+  searchShowMoreBtn.addEventListener("click", () => {
+    visibleSearchResultCount =
+      visibleSearchResultCount >= searchResultItems.length
+        ? SEARCH_RESULTS_PER_PAGE
+        : searchResultItems.length;
+    renderSearchResults();
+  });
 }
 
 
@@ -456,14 +660,13 @@ async function loadMovies() {
       await response.json();
 
 
-    const results =
-      data.results || [];
+    trendingMovieItems = data.results || [];
 
-
-    movieList.replaceChildren(
-      ...results
-        .slice(0, 18)
-        .map(createMovieCard)
+    renderMovieCollection(
+      movieList,
+      trendingMovieItems,
+      visibleTrendingMovies,
+      trendingMoviesMoreBtn
     );
 
   }
@@ -528,7 +731,7 @@ const romanceAnimeIds = [
 async function fetchAnimeMovieList() {
   try {
     const response = await fetch(
-      "https://api.jikan.moe/v4/top/anime?limit=12"
+      "https://api.jikan.moe/v4/top/anime?limit=25"
     );
 
     if (!response.ok) {
@@ -554,9 +757,9 @@ async function loadAnimeMovies() {
     <p class="loading-text">⏳ Đang tải anime...</p>
   `;
 
-  const animeMovies = await fetchAnimeMovieList();
+  trendingAnimeItems = await fetchAnimeMovieList();
 
-  if (!animeMovies.length) {
+  if (!trendingAnimeItems.length) {
     renderMessage(
       animeList,
       "Không tải được anime. Vui lòng thử lại sau."
@@ -564,8 +767,11 @@ async function loadAnimeMovies() {
     return;
   }
 
-  animeList.replaceChildren(
-    ...animeMovies.map(createMovieCard)
+  renderMovieCollection(
+    animeList,
+    trendingAnimeItems,
+    visibleTrendingAnime,
+    trendingAnimeMoreBtn
   );
 }
 
@@ -625,10 +831,13 @@ async function loadPopularMovies() {
     }
 
 
-    allMovieList.replaceChildren(
-      ...movies.map(
-        createMovieCard
-      )
+    popularMovieItems = movies;
+
+    renderMovieCollection(
+      allMovieList,
+      popularMovieItems,
+      visiblePopularMovies,
+      showMoreBtn
     );
 
   }

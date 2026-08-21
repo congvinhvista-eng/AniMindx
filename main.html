@@ -19,6 +19,17 @@
     <nav>
       <a class="brand" href="./main.html">AniMindx</a>
 
+      <form class="movie-search" id="movie-search-form" role="search">
+        <label class="sr-only" for="movie-search-input">Tìm phim hoặc anime</label>
+        <input
+          id="movie-search-input"
+          type="search"
+          placeholder="Tìm phim, anime..."
+          autocomplete="off"
+        />
+        <button type="submit">Tìm</button>
+      </form>
+
       <div class="user" id="currentUser">User</div>
     </nav>
 
@@ -43,6 +54,16 @@
          MAIN CONTENT
     ========================== -->
     <main class="movies-shell">
+      <section id="search-results" class="search-results" hidden aria-live="polite">
+        <h2 id="search-results-title">Kết quả tìm kiếm</h2>
+        <div id="search-results-list" class="movie-library search-results-grid"></div>
+        <div id="search-show-more-container" class="show-more-container" hidden>
+          <button id="search-show-more-btn" class="show-more-btn" type="button">
+            Xem thêm
+          </button>
+        </div>
+      </section>
+
       <!-- =========================
            PHIM THỊNH HÀNH
       ========================== -->
@@ -58,6 +79,9 @@
           class="movie-grid"
           aria-live="polite"
         ></section>
+        <div id="trending-movies-more-container" class="show-more-container" hidden>
+          <button id="trending-movies-more-btn" class="show-more-btn" type="button">Xem thêm</button>
+        </div>
       </section>
 
       <!-- =========================
@@ -73,6 +97,9 @@
           class="movie-grid"
           aria-live="polite"
         ></section>
+        <div id="trending-anime-more-container" class="show-more-container" hidden>
+          <button id="trending-anime-more-btn" class="show-more-btn" type="button">Xem thêm</button>
+        </div>
       </section>
 
       <!-- =========================
